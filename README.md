@@ -34,7 +34,7 @@
 
 **Added**
 - Initial files
-- ```genUsers``` function generate users
+- ```genUsers``` function for generating users
 - README
 ---
 ## Program structure
