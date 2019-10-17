@@ -13,7 +13,8 @@
 ## Terms of use
 
 - After you start the program you will be greeted with a menu that looks like this:
-```Pasirinkite ka daryti:
+```
+   Pasirinkite ka daryti:
    1. Generuoti vartotojus
    2. Generuoti transakcijas
    3. Generuoti MindeChain blokus
