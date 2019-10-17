@@ -1,12 +1,14 @@
 #include"Helperfuncs.h"
-
 int main() {
     int count=0;
+    long double low;
+    long double high;
     std::vector<User> users;
-    double version=0.01;
+    std::vector<Transaction> transactions;
+    double version=0.03;
     while(count==0){
         std::cout<<"Mindechain versija: V"<<version<<"\n";
-        std::cout<<"Sugeneruota "<<users.size()<<" vartotoju, 0 transakciju dar neidetos i blokus\n";
+        std::cout<<"Sugeneruota "<<users.size()<<" vartotoju, "<<transactions.size()<<" transakciju dar neidetos i blokus\n";
         std::cout<<"Saugoma 0 bloku informacija\n";
         std::cout<<"Pasirinkite ka daryti: \n";
         std::cout<<"1. Generuoti vartotojus \n";
@@ -25,10 +27,11 @@ int main() {
         switch(count){
             case 1:
                 count=0;
-                users=genUsers();
+                users=genUsers(low,high);
                 break;
             case 2:
                 count=0;
+                transactions=genTransactions(users,low,high);
                 break;
             case 3:
                 count=0;

@@ -10,6 +10,9 @@ std::uniform_int_distribution<int> dist3(0,10);
 bool isAlpha( const std::string & str){
     return std::all_of(str.begin(), str.end(), ::isalpha);
 }
+void progress(int max, int current){
+    std::cout<<"Atlikta "<<current/(max/100)<<" % darbo \n";
+}
 std::string random_string(S_LENGTH length){
     std::string s;
     s.reserve(length);
@@ -61,7 +64,7 @@ bool checkBounds(long double bound1, long double bound2){
     else
         return true;
 }
-std::vector<User>genUsers(){
+std::vector<User>genUsers(long double & low, long double & high){
     std::vector<User> users;
     std::string name;
     std::string privKey;
@@ -79,14 +82,14 @@ std::vector<User>genUsers(){
     std::cout<<"Iveskite vartotojo vardo pagrinda, bus naudojama formuleje vardas=pagrindas+n \n";
     std::string base=inputString();
     std::cout<<"Iveskite kiek minimaliai Mindecoins tures vartotojas (gali buti nesveikasis skaicius)\n";
-    long double low=inputBound();
+     low=inputBound();
     std::cout<<"Iveskite kiek maksimaliai Mindecoins tures vartotojas (gali buti nesveikasis skaicius)\n";
-    long double high=inputBound();
+     high=inputBound();
     if(!checkBounds(low,high)){
         std::cout<<"Ivestos netinkamos min/max Mindecoins reiksmes, bandykite dar karta\n";
-        std::cout<<"Iveskite kiek minimaliai Mindecoins tures vartotojas (gali buti nesveikasis skaicius)\n";
+        std::cout<<"Iveskite kiek minimaliai Mindecoins is pradziu tures vartotojas (gali buti nesveikasis skaicius)\n";
         low=inputBound();
-        std::cout<<"Iveskite kiek maksimaliai Mindecoins tures vartotojas (gali buti nesveikasis skaicius)\n";
+        std::cout<<"Iveskite kiek maksimaliai Mindecoins is pradziu tures vartotojas (gali buti nesveikasis skaicius)\n";
         high=inputBound();
     }
     while(!checkBounds(low,high));
@@ -98,8 +101,51 @@ std::vector<User>genUsers(){
         publicKey=MindeHash::getHash();
         mindeCoins=dist2(mt);
         users.emplace_back(User(name,privKey,publicKey,mindeCoins));
-
+        if((i%((count/100)*5)==0))
+            progress(count,i);
     }
     return users;
+}
+std::vector<Transaction>genTransactions(std::vector<User> & users,long double low, long double high){
+    dist2.param(std::uniform_real_distribution<long double>::param_type(low+0.00000001*high,low+0.69420*high));
+    dist3.param(std::uniform_int_distribution<int>::param_type(0,users.size()-1));
+    std::cout<<"Kiek sugeneruoti transakciju (5<)\n";
+    int count=inputNum();
+    std::vector<Transaction> transactions;
+    int sender;
+    int receiver;
+    long double amount;
+    if(count<=5){
+        do{
+            std::cout<<"Ivestas per mazas transakciju skaicius\n";
+            count=inputNum();
+        }
+        while(count<=5);
+    }
+    for(int i=1; i<=count;i++){
+        amount=dist2(mt);
+        sender=dist3(mt);
+        receiver=dist3(mt);
+        if(amount>users[sender].getCoins()){
+            do{
+                amount=dist2(mt);
+                sender=dist3(mt);
+                receiver=dist3(mt);
+        if(sender==receiver){
+            do{
+                sender=dist3(mt);
+                receiver=dist3(mt);
+            }
+            while(sender==receiver);
+        }}
+        while(amount>users[sender].getCoins());}
+        transactions.emplace_back(Transaction(i,users[sender].getName(),users[receiver].getName(),users[sender].getPkey(),users[receiver].getPkey(),amount));
+        users[sender].decrCoins(amount);
+        users[receiver].incrCoins(amount);
+        if((i%((count/100)*5)==0))
+            progress(count,i);
+
+    }
+    return transactions;
 }
 

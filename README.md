@@ -30,6 +30,20 @@
 
 ---
 ## Changelog
+
+[v0.0.3](https://github.com/gitguuddd/MindeChain/releases/tag/v0.0.3) - (2019-10-18)
+
+**Added**
+- Transaction class
+- ```genTransactions()``` function
+
+**Changed**
+- README
+
+**Removed**
+- ```User.cpp```
+
+---
 [v0.0.1](https://github.com/gitguuddd/MindeChain/releases/tag/v0.0.1) - (2019-10-17)
 
 **Added**
@@ -41,4 +55,5 @@
 - ```HashFuncs.h and HashFuncs.cpp``` contain functions found in ```MindeHash``` class
 - ```MindeHash.h``` contains main body of MindeHash class
 - ```Helperfuncs.h and HelperFfuncs.cpp``` contain functions that are used to simulate MindeChain
-- ```User.h and User.cpp``` contain user class implementation
+- ```User.h``` contains user class implementation
+- ```Transaction.h``` contains transaction class implementation

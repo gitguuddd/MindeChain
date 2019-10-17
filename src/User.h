@@ -20,6 +20,22 @@ public:
     {
 
     }
+    long double getCoins(){
+        return m_Mindecoins;
+    }
+    void incrCoins(long double val){
+        m_Mindecoins+=val;
+    }
+    void decrCoins(long double val){
+        m_Mindecoins-=val;
+    }
+    std::string getName(){
+        return m_name;
+    }
+    std::string getPkey(){
+        return m_publicKey;
+    }
+
 };
 
 
