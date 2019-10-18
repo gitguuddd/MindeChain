@@ -7,11 +7,25 @@ std::mt19937 mt(seed);
 std::uniform_int_distribution<S_LENGTH> dist(0, ranChrs.length()-1);
 std::uniform_real_distribution<long double> dist2(100.000000,10000000.000000);
 std::uniform_int_distribution<int> dist3(0,10);
+std::uniform_int_distribution<long long> dist4(0,100000000000000000);
+std::uniform_int_distribution<int> dist5(0,10);
+std::string genesisFifth="20 Dievas tarė: „Tegul vandenys knibždėte knibžda gyvūnais ir paukščiai teskraido virš žemės, padangėse!21 Taip Dievas sutvėrė didelius jūros gyvūnus ir visus kitus gyvius, kurie atsirado iš vandens, ir visus paukščius pagal jų rūšį. Ir Dievas matė, kad tai buvo gerai. 22 Dievas juos palaimino, tardamas: „Būkite vaisingi, dauginkitės ir pripildykite vandenis jūrose, o paukščiai tepripildo žemę! 23 Tai buvo vakaras ir rytas – penktoji diena.";
+int timeSinceBirth=939334200;
+std::string JBCFriday="Kaip visada, kaip visada Vieną dieną sekasi, o kitą jau ne. Du draugeliai ieško pinigų kišenėj, Bet neranda, nes jie nesupranta: Kai lengvai gauna, tai lengvai praranda. Taip jau būna, kad žmonės nesupranta. Maximas buvo geras, Vadimas buvo blogas Maximas mėgo stringus, o Vadimas – šortus. Abu buvo klasiokai, visai ne dvyliktokai Ir mėgo fizinį lavinimą. Penktadienis, artėja vakaras Maximas skambina Vadimui Ne šiaip sau, jis turi pakvietimą Šiandiena tūsas, pas gerą draugą Mišą Bet deja problema, reikia spręst dilemą Iš kur gauti litų, gal laimėt loterijoj? Taip ir buvo, Vadimas pirko bilietą Už paskutines šaibas. Laimėjo ir nusipirko daug alaus Greičiau pas Mišą – tūsas nelauks Jei tau šiandien penktadienis Rytoj – labanaktis 2x Kaip visada, kaip visada Maksimas ir Vadimas lankosi čia Nelegalios lenktynės ir adrenalinas Mentai suuodė staigiai, viską sugadino. Gerai, kad jie turėjo paną, gerą. Nulėkė tuoj pat pas ją žiūrėti kašio finalą. Pasiėmė draugų, pora alaus butelių, Vadimas prikabino keletą mergų, panelių Viskas tvarkoj, viskas gerai Mašina pastatyta po langais Kaimynai nepatenkinti, Nes žino, kad tai nesibaigs Taip lengvai, paprastai, tyliai. Makas kala į klyną new style‘ą gryną Garsink aparatūrą. O ryte pajuto, kad burna išdžiuvo. Nerado piniginių, telefonų, viso kito š**o Jei tau šiandien penktadienis Rytoj – labanaktis 4x";
+
 bool isAlpha( const std::string & str){
     return std::all_of(str.begin(), str.end(), ::isalpha);
 }
 void progress(int max, int current){
     std::cout<<"Atlikta "<<current/(max/100)<<" % darbo \n";
+}
+std::string genTS(){
+    std::string timeStamp;
+    auto end = std::chrono::system_clock::now();
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    timeStamp = std::ctime(&end_time);
+    timeStamp.resize(timeStamp.size()-2);
+    return timeStamp;
 }
 std::string random_string(S_LENGTH length){
     std::string s;
@@ -147,5 +161,120 @@ std::vector<Transaction>genTransactions(std::vector<User> & users,long double lo
 
     }
     return transactions;
+}
+std::vector<std::string>select100(std::vector<std::string> & trans,std::vector<Transaction> & transs){
+    int rand;
+    std::vector<std::string> picked;
+    if(trans.size()>100){
+        for(int i=0;i<100;i++){
+        dist5.param(std::uniform_int_distribution<int>::param_type(0,trans.size()-1));
+        rand=dist5(mt);
+        picked.emplace_back(trans[rand]);
+        trans.erase(trans.begin()+rand);
+        transs.erase(transs.begin()+rand);}
+    }
+    else{
+        dist5.param(std::uniform_int_distribution<int>::param_type(0,trans.size()-1));
+        picked=trans;
+        trans.clear();
+        transs.clear();
+    }
+    return picked;
+}
+std::vector<std::string>tranToString(std::vector<Transaction> trans){
+    std::vector<std::string> strings;
+    for( Transaction tran : trans){
+        strings.emplace_back(tran.toString());
+    }
+    return strings;
+}
+
+std::vector<std::string> mRoot(std::vector<std::string> trans){
+    std::string concat;
+    std::vector<std::string> results;
+    if(trans.size()%2!=0)
+        trans.emplace_back(trans[trans.size()-1]);
+    for(int i=0;i<=trans.size()-2;i++){
+        concat=trans[i]+trans[i+1];
+        MindeHash::genHash(concat);
+        results.emplace_back(MindeHash::getHash());
+        if(i!=trans.size()-2)
+        i++;
+    }
+    
+    if(results.size()!=1)
+    mRoot(results);
+    if(results.size()==1)
+        return results;
+}
+void mineBlock(MindeBlock & block, int target, BlockHeader & head){
+
+    std::string pattern;
+    std::string blockHash;
+    long long nonce=dist4(mt);
+    std::string timeStamp=genTS();
+    head.setNonce(nonce);
+    head.setTimestamp(timeStamp);
+    block.setHeader(head.stringify());
+    for(int i=0;i<head.getTarget();i++){
+        pattern+=std::to_string(1);
+    }
+    blockHash=block.getBlockHash();
+    while(blockHash.compare(0,pattern.length(),pattern)!=0){//https://stackoverflow.com/a/8095276/11198444
+        nonce=dist4(mt);
+        timeStamp=genTS();
+        head.setNonce(nonce);
+        head.setTimestamp(timeStamp);
+        block.setHeader(head.stringify());
+        blockHash=block.getBlockHash();
+    }
+
+
+}
+void mineGenesis(MindeBlock & block, int target, BlockHeader & head){
+    std::string pattern;
+    std::string blockHash;
+    long long nonce=dist4(mt);
+    head.setNonce(nonce);
+    block.setHeader(head.stringify());
+    for(int i=0;i<head.getTarget();i++){
+        pattern+=std::to_string(1);
+    }
+    while(blockHash.compare(0,pattern.length(),pattern)!=0){//https://stackoverflow.com/a/8095276/11198444
+        nonce=dist4(mt);
+        head.setNonce(nonce);
+        block.setHeader(head.stringify());
+        blockHash=block.getBlockHash();
+    }
+
+}
+void generateBlock(std::vector<MindeBlock> & blocks,std::vector<std::string>&trans, double version, int target,std::vector<Transaction>&transs){
+if(blocks.empty()){
+    std::vector<std::string>geneTrans;
+    MindeHash::genHash(genesisFifth);
+    std::string prevBlock=MindeHash::getHash();
+    MindeHash::genHash(JBCFriday);
+    std::string merkle=MindeHash::getHash();
+    std::time_t end_timE = timeSinceBirth;
+    std::string timeStamp = std::ctime(&end_timE);
+    timeStamp.resize(timeStamp.size());
+    BlockHeader genhead(prevBlock,target,merkle,version);
+    genhead.setTimestamp(timeStamp);
+    MindeBlock genes(geneTrans);
+    mineGenesis(genes,target,genhead);
+    std::cout<<"Iskastas genesis blockas\n";
+    blocks.emplace_back(genes);
+}
+else{
+    std::string prevBlock = blocks[blocks.size()-1].getBlockHash();
+    std::vector<std::string> transax = select100(trans,transs);
+    std::vector<std::string> merkleRoot = mRoot(transax);
+    BlockHeader head(prevBlock,target,merkleRoot[0],version);
+    MindeBlock block(transax);
+    mineBlock(block,target,head);
+    std::cout<<"Iskastas "<<blocks.size()+1<<" as blokas \n";
+    blocks.emplace_back(block);
+
+}
 }
 

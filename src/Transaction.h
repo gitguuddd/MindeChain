@@ -23,16 +23,19 @@
                     long double sent)
                 : m_senderName(std::move(senderName)), m_receiverName(std::move(receiverName)),
                   m_senderPKey(std::move(senderPKey)), m_receiverPKey(std::move(receiverPKey)), m_sent(sent),m_ID(ID) {
-            auto end = std::chrono::system_clock::now();
-            std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-            timeStamp = std::ctime(&end_time);
+
 
         }
 
         std::string toString() {
+            auto end = std::chrono::system_clock::now();
+            std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+            timeStamp = std::ctime(&end_time);
             std::string str = std::to_string(m_ID) + " " + m_senderName + " " + m_senderPKey + " ------> " +
                               std::to_string(m_sent) + " ------> " + m_receiverName + " " + m_receiverPKey + " at " +
                               timeStamp;
+            str.resize(str.size()-1);
+            return str;
         }
 
     };

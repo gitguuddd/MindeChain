@@ -29,8 +29,38 @@
 - Choose the fifth option to exit the program
 
 ---
+
+## One major flaw of MindeChain
+- Due to the fact that my MindeChain DS uses MindeHash hash functions for hashing purposes instead of SHA256, every hash is generated in a way that it's impossible for any character to have a neighbor with an equal value - **Which is why block can be generated effectively only by setting difficulty to 1 (number 1 in front of generated hash)**
+
+
+---
+## A couple of interesting things about MindeChain genesis block
+- Mindecoin genesis block contains some interesting hardcoded values that are used as hashing values to generate following block header fields
+- Previous block hash is obtained by hashing a part of the bible. More specifically : Genesis ch 1 , lines 20-23 - the lines that talk about the works that God had done on the fifth day (**Friday**)
+- Merkle root hash is obtained by hashing the lyrics of a song made by JBC (**J**uoda**B**alta**C**rew) - a Lithuanian hip hop group that was active during the years 2000-2006. The name of the song is **Friday(Penktadienis)**
+- The timestamp value is obtained by converting 939334200 seconds that had passed since 1970 January 1st (zero point of POSIX time) into an alphanumeric formatted date. After the conversion the timestamp value is equal to the exact time of my birthday, which also happened on **Friday**
+
+
+---
 ## Changelog
 
+[v0.1](https://github.com/gitguuddd/MindeChain/releases/tag/v0.1) - (2019-10-18)
+
+**Added**
+- ```MindeBlock.h```
+- ```BlockHeader.h```
+- ```generateBlocks()``` - the main function of this program
+- ```mineBlock() and mineGenesis()``` - functions used for mining new blocks
+- ```mRoot()``` - function used to generate a merkel tree hash from a given vector of transaction strings
+- ```select100()```- a function that select which random transanctions to include in next block
+- ```tranToString``` - a function that converts a vector of transactions to a vector of strings
+- Additional input handling logic
+
+**Changed**
+- README
+
+---
 [v0.0.3](https://github.com/gitguuddd/MindeChain/releases/tag/v0.0.3) - (2019-10-18)
 
 **Added**
@@ -57,3 +87,5 @@
 - ```Helperfuncs.h and HelperFfuncs.cpp``` contain functions that are used to simulate MindeChain
 - ```User.h``` contains user class implementation
 - ```Transaction.h``` contains transaction class implementation
+- ```BlockHeader.h``` contains an implementation of a block header
+- ```MindeBlock.h``` contains an implementation of a MindeChain block
