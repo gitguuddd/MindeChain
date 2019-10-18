@@ -31,7 +31,7 @@
 ---
 
 ## One major flaw of MindeChain
-- Due to the fact that my MindeChain DS uses MindeHash hash functions for hashing purposes instead of SHA256, every hash is generated in a way that it's impossible for any character to have a neighbor with an equal value - **Which is why blocks can be generated effectively only by setting difficulty to 1 (generated hash has to start with a 1)**
+- Due to the fact that my MindeChain DS uses MindeHash hash function for hashing purposes instead of SHA256, every hash is generated in a way that it's impossible for any character to have a neighbor with an equal value - **Which is why blocks can be generated effectively only by setting difficulty to 1 (generated hash has to start with a 1)**
 
 
 ---
