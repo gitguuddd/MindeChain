@@ -29,7 +29,10 @@
 - Choose the fifth option to exit the program
 
 ---
+## Block header structure
+- Block header structure follows this pattern : ```MindeChain version|previous block hash|merkle root hash of all transactions in the block|timestamp when block was mined|difficulty target|nonce value```
 
+---
 ## One major flaw of MindeChain
 - Due to the fact that my MindeChain DS uses MindeHash hash function for hashing purposes instead of SHA256, every hash is generated in a way that it's impossible for any character to have a neighbor with an equal value - **Which is why blocks can be generated effectively only by setting difficulty to 1 (generated hash has to start with a 1)**
 
