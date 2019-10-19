@@ -31,7 +31,7 @@
 ---
 
 ## One major flaw of MindeChain
-- Due to the fact that my MindeChain DS uses MindeHash hash functions for hashing purposes instead of SHA256, every hash is generated in a way that it's impossible for any character to have a neighbor with an equal value - **Which is why block can be generated effectively only by setting difficulty to 1 (number 1 in front of generated hash)**
+- Due to the fact that my MindeChain DS uses MindeHash hash function for hashing purposes instead of SHA256, every hash is generated in a way that it's impossible for any character to have a neighbor with an equal value - **Which is why blocks can be generated effectively only by setting difficulty to 1 (generated hash has to start with a 1)**
 
 
 ---
@@ -83,6 +83,9 @@
 
 **Changed**
 - README
+
+**Idea**
+- Base my POW on the total ascii value of the generated hash
 
 ---
 [v0.0.3](https://github.com/gitguuddd/MindeChain/releases/tag/v0.0.3) - (2019-10-18)
