@@ -52,7 +52,7 @@
 - Generated transactions : **100000**
 - Generated blocks (genesis included) : **1001**
 - ```BlockLog.txt``` size after outputting : **21.046 MB**
-- [BlockLog contents](BlockLog.txt)
+- [BlockLog contents](https://www.dropbox.com/s/lh3i1aubyeg6p4d/BlockLog.txt?dl=0)
 
 
 ---
