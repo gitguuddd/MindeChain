@@ -115,13 +115,14 @@ std::vector<User>genUsers(long double & low, long double & high){
         publicKey=MindeHash::getHash();
         mindeCoins=dist2(mt);
         users.emplace_back(User(name,privKey,publicKey,mindeCoins));
+        if(count/100>0){
         if((i%((count/100)*5)==0))
             progress(count,i);
-    }
+    }}
     return users;
 }
 std::vector<Transaction>genTransactions(std::vector<User> & users,long double low, long double high){
-    dist2.param(std::uniform_real_distribution<long double>::param_type(low+0.00000001*high,low+0.69420*high));
+    dist2.param(std::uniform_real_distribution<long double>::param_type(0.69420*low,0.69420*high));
     dist3.param(std::uniform_int_distribution<int>::param_type(0,users.size()-1));
     std::cout<<"Kiek sugeneruoti transakciju (5<)\n";
     int count=inputNum();
@@ -156,12 +157,13 @@ std::vector<Transaction>genTransactions(std::vector<User> & users,long double lo
         transactions.emplace_back(Transaction(i,users[sender].getName(),users[receiver].getName(),users[sender].getPkey(),users[receiver].getPkey(),amount));
         users[sender].decrCoins(amount);
         users[receiver].incrCoins(amount);
+        if(count/100>0){
         if((i%((count/100)*5)==0))
             progress(count,i);
+        }
 
-    }
-    return transactions;
 }
+    return transactions;}
 std::vector<std::string>select100(std::vector<std::string> & trans,std::vector<Transaction> & transs){
     int rand;
     std::vector<std::string> picked;
@@ -192,19 +194,17 @@ std::vector<std::string>tranToString(std::vector<Transaction> trans){
 std::vector<std::string> mRoot(std::vector<std::string> trans){
     std::string concat;
     std::vector<std::string> results;
-    if(trans.size()%2!=0)
-        trans.emplace_back(trans[trans.size()-1]);
-    for(int i=0;i<=trans.size()-2;i++){
-        concat=trans[i]+trans[i+1];
+    if(trans.size()%2!=0)// tikrina ar lyginis dydis
+        trans.emplace_back(trans[trans.size()-1]);// jei ne prideda dar viena paskutiniai transakcijai lygia transakciją
+    for(int i=0;i<=trans.size()-2;i++){// i+2 nes sujungiamos transakciju poros ir kartu hashuojamos
+        concat=trans[i]+trans[i+1];// sujungia
         MindeHash::genHash(concat);
-        results.emplace_back(MindeHash::getHash());
-        if(i!=trans.size()-2)
+        results.emplace_back(MindeHash::getHash());// papildomas patikrinimas,
         i++;
     }
-    
-    if(results.size()!=1)
+    if(results.size()!=1)// jei yra daugiau nei vienas hashas - rekursija
     mRoot(results);
-    if(results.size()==1)
+    if(results.size()==1)// jei yra tik vienas hashas - returninam
         return results;
 }
 void mineBlock(MindeBlock & block, int target, BlockHeader & head){
@@ -276,5 +276,11 @@ else{
     blocks.emplace_back(block);
 
 }
+}
+void outputBlock(std::vector<MindeBlock> blocks){
+    std::ofstream fv("BlockLog.txt");
+    for(MindeBlock Block : blocks){
+        fv<<Block;
+    }
 }
 

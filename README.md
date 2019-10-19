@@ -23,9 +23,9 @@
 
    ``` 
 - Choose the first option to generate a desired number of users, you'll be asked to provide count of generated users, name base, min and max values of MindeCoin a user can have
-- Choose the second option to generate transactions, min and max values of Mindecoins  will be equal to ```minMindecoins+0.00000001*maxMindecoins and 0.69420*maxMindecoins```
+- Choose the second option to generate transactions, min and max values of Mindecoins  will be equal to ```0.69420*minMindecoins and 0.69420*maxMindecoins```
 - Choose the third option to generate blocks
-- Choose the fourth option to output block info to blocklog.txt file
+- Choose the fourth option to output info of all the blocks to ```BlockLog.txt``` file
 - Choose the fifth option to exit the program
 
 ---
@@ -43,8 +43,32 @@
 
 
 ---
+## Test run
+
+- Generated users : **100000**
+- Generated transactions : **100000**
+- Generated blocks (genesis included) : **1001**
+- ```BlockLog.txt``` size after outputting : **21.046 MB**
+- [BlockLog contents](BlockLog.txt)
+
+
+---
 ## Changelog
 
+[v0.1.2](https://github.com/gitguuddd/MindeChain/releases/tag/v0.1.2) - (2019-10-19)
+
+**Added**
+- ```outputBlock()``` - a function that outputs all the contents of all the blocks into ```BlockLog.txt``` file located in build directory
+- Fixes for a couple of bugs
+- ```BlockLog.txt``` example in README
+
+**Changed**
+- Block header is now more easier to read - added ```|``` as a separator
+- Minimal transaction amount is now equal to ```0.69420*minimum amount of MindeCoins an user can own```
+- README
+
+
+---
 [v0.1](https://github.com/gitguuddd/MindeChain/releases/tag/v0.1) - (2019-10-18)
 
 **Added**

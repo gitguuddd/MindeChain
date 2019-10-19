@@ -10,7 +10,7 @@ int main() {
     std::vector<Transaction> transactions;
     std::vector<std::string> transactionStrings;
     std::vector<MindeBlock> MindeBlocks;
-    double version=0.1;
+    double version=0.12;
     while(count==0){
         std::cout<<"Mindechain versija: V"<<version<<"\n";
         std::cout<<"Sugeneruota "<<users.size()<<" vartotoju, "<<transactions.size()<<" transakciju dar neidetos i blokus\n";
@@ -72,6 +72,13 @@ int main() {
                 break;
             case 4:
                 count=0;
+                if(MindeBlocks.empty()){
+                    std::cout<<"Negalima generuoti BlockLog.txt failo neturint saugomų blokų\n";
+                    break;
+                }
+                outputBlock(MindeBlocks);
+                std::cout<<"Bloku duomenys išvesti sekmingai\n";
+                MindeBlocks.clear();
                 break;
             case 5:
                 return 0;

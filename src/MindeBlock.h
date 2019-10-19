@@ -37,8 +37,8 @@ public:
 
     friend std::ostream& operator<<(std::ostream & fv,  const MindeBlock  & block){
         fv<<"{\n";
-        fv<<block.getHeader();
-        fv<<block.getTransacs();
+        fv<<block.getHeader()<<"\n";
+        fv<<block.getTransacs()<<"\n";
         fv<<"}\n";
        }
 

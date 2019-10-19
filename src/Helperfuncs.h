@@ -47,6 +47,7 @@ std::vector<std::string> mRoot(std::vector<std::string> trans);
 void mineGenesis(MindeBlock & block, int target, BlockHeader & head);
 void mineBlock(MindeBlock & block, int target, BlockHeader & head);
 void generateBlock(std::vector<MindeBlock> & blocks,std::vector<std::string>&trans, double version, int target,std::vector<Transaction>&transs);
+void outputBlock(std::vector<MindeBlock> blocks);
 
 
 

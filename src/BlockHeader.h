@@ -23,9 +23,7 @@ public:
     }
     void setTimestamp(std::string tS){
         tS.resize(tS.size()-1);
-        std::stringstream ss;
-        ss<<std::hex<<tS;
-        m_timestamp = "0x"+ss.str();
+        m_timestamp=tS;
     }
     void setNonce(long long nO){
         m_nonce=nO;
@@ -34,7 +32,7 @@ public:
         return m_target;
     }
     std::string stringify(){
-        std::string str =std::to_string(m_version)+"00"+m_prevHash+"00"+m_merkleRoot+"00"+m_timestamp+"00"+std::to_string(m_target)+"00"+std::to_string(m_nonce);
+        std::string str =std::to_string(m_version)+'|'+m_prevHash+'|'+m_merkleRoot+'|'+m_timestamp+'|'+std::to_string(m_target)+'|'+std::to_string(m_nonce);
         return str;
     }
 
