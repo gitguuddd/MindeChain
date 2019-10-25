@@ -63,6 +63,7 @@
 **Added**
 - ```balanceVerify()``` function used to remove transactions, in which the sender is sending more Mindecoins than he currently has. The function is also responsible for carrying out the transactions - sending Mindecoins from one user to other
 - ```IDHashVerify()``` function used to remove transactions, which have been maliciously changed before reaching the transaction pool
+
 **Changed**
 - README
 - Impaired ```genTransactions()``` - removed amount checking and instant user Mindecoins incrementation/decrementation so that the aforementioned added functions would be of use
