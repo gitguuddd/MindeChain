@@ -41,6 +41,8 @@ int inputNum();
 bool checkBounds(long double bound1, long double bound2);
 std::vector<User>genUsers(long double & min, long double & max);
 std::vector<Transaction>genTransactions(std::vector<User> & users, long double low, long double high);
+void balanceVerify(std::vector<Transaction> &trans , std::vector<User> & users );
+void IDHashVerify(std::vector<Transaction> &trans);
 std::vector<std::string>select100(std::vector<std::string> & trans,std::vector<Transaction> & transs);
 std::vector<std::string>tranToString(std::vector<Transaction> trans);
 std::vector<std::string> mRoot(std::vector<std::string> trans);

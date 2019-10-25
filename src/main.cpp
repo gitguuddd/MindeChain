@@ -10,7 +10,7 @@ int main() {
     std::vector<Transaction> transactions;
     std::vector<std::string> transactionStrings;
     std::vector<MindeBlock> MindeBlocks;
-    double version=0.12;
+    double version=0.15;
     while(count==0){
         std::cout<<"Mindechain versija: V"<<version<<"\n";
         std::cout<<"Sugeneruota "<<users.size()<<" vartotoju, "<<transactions.size()<<" transakciju dar neidetos i blokus\n";
@@ -42,6 +42,8 @@ int main() {
                     break;
                 }
                 transactions=genTransactions(users,low,high);
+                IDHashVerify(transactions);
+                balanceVerify(transactions,users);
                 break;
             case 3:
                 count=0;

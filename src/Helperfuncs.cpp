@@ -141,22 +141,14 @@ std::vector<Transaction>genTransactions(std::vector<User> & users,long double lo
         amount=dist2(mt);
         sender=dist3(mt);
         receiver=dist3(mt);
-        if(amount>users[sender].getCoins()){
-            do{
-                amount=dist2(mt);
-                sender=dist3(mt);
-                receiver=dist3(mt);
         if(sender==receiver){
             do{
                 sender=dist3(mt);
                 receiver=dist3(mt);
             }
             while(sender==receiver);
-        }}
-        while(amount>users[sender].getCoins());}
+        }
         transactions.emplace_back(Transaction(i,users[sender].getName(),users[receiver].getName(),users[sender].getPkey(),users[receiver].getPkey(),amount));
-        users[sender].decrCoins(amount);
-        users[receiver].incrCoins(amount);
         if(count/100>0){
         if((i%((count/100)*5)==0))
             progress(count,i);
@@ -164,6 +156,29 @@ std::vector<Transaction>genTransactions(std::vector<User> & users,long double lo
 
 }
     return transactions;}
+void balanceVerify(std::vector<Transaction> &trans , std::vector<User> & users ){
+    int senderID;
+    int receiverID;
+    long double coinsSent;
+    for(int i=0;i<trans.size();i++){
+        senderID=trans[i].getUserName();
+        receiverID=trans[i].getReceiverName();
+        coinsSent=trans[i].getAmount();
+        if(users[senderID].getCoins()<coinsSent)
+            trans.erase(trans.begin()+i);
+        else{
+            users[senderID].decrCoins(coinsSent);
+            users[receiverID].incrCoins(coinsSent);
+        }
+    }
+}
+void IDHashVerify(std::vector<Transaction> &trans){
+    for(int i=0;i<trans.size();i++){
+        MindeHash::genHash(trans[i].getRawData());
+        if(trans[i].getId()!=MindeHash::getHash())
+            trans.erase(trans.begin()+i);
+    }
+}
 std::vector<std::string>select100(std::vector<std::string> & trans,std::vector<Transaction> & transs){
     int rand;
     std::vector<std::string> picked;

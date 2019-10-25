@@ -58,6 +58,16 @@
 ---
 ## Changelog
 
+[v0.1.5](https://github.com/gitguuddd/MindeChain/releases/tag/v0.1.5) - (2019-10-25)
+
+**Added**
+- ```balanceVerify()``` function used to remove transactions, in which the sender is sending more Mindecoins than he currently has. The function is also responsible for carrying out the transactions - sending Mindecoins from one user to other
+- ```IDHashVerify()``` function used to remove transactions, which have been maliciously changed before reaching the transaction pool
+**Changed**
+- README
+- Impaired ```genTransactions()``` - removed amount checking and instant user Mindecoins incrementation/decrementation so that the aforementioned added functions would be of use
+
+---
 [v0.1.2](https://github.com/gitguuddd/MindeChain/releases/tag/v0.1.2) - (2019-10-19)
 
 **Added**
