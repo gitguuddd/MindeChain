@@ -7,6 +7,7 @@
 
 #include <string>
 #include <sstream>
+
 class BlockHeader {
 private:
     std::string m_prevHash;
@@ -16,24 +17,36 @@ private:
     double m_version;
     long long m_nonce;
 public:
-    BlockHeader( std::string  prevHash, int target, std::string  merkleRoot, double version)
-        :m_prevHash(prevHash),m_merkleRoot(merkleRoot),m_version(version),m_target(target){
-        m_nonce=0;
-        m_timestamp="";
+    BlockHeader() = default;
+
+    BlockHeader(std::string prevHash, int target, std::string merkleRoot, double version)
+            : m_prevHash(std::move(prevHash)), m_merkleRoot(std::move(merkleRoot)), m_version(version),
+              m_target(target) {
+        m_nonce = 0;
+        m_timestamp = "";
     }
-    void setTimestamp(std::string tS){
-        tS.resize(tS.size()-1);
-        m_timestamp=tS;
+
+    void setTimestamp(std::string tS) {
+        tS.resize(tS.size() - 1);
+        m_timestamp = tS;
     }
-    void setNonce(long long nO){
-        m_nonce=nO;
+
+    void setNonce(long long nO) {
+        m_nonce = nO;
     }
-    int getTarget(){
+
+    int getTarget() {
         return m_target;
     }
-    std::string stringify(){
-        std::string str =std::to_string(m_version)+'|'+m_prevHash+'|'+m_merkleRoot+'|'+m_timestamp+'|'+std::to_string(m_target)+'|'+std::to_string(m_nonce);
+
+    std::string stringify() {
+        std::string str = std::to_string(m_version) + '|' + m_prevHash + '|' + m_merkleRoot + '|' + m_timestamp + '|' +
+                          std::to_string(m_target) + '|' + std::to_string(m_nonce);
         return str;
+    }
+
+    void setMerkle(std::string merkle) {
+        m_merkleRoot = std::move(merkle);
     }
 
 

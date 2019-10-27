@@ -15,24 +15,29 @@ private:
     std::string m_publicKey;
     long double m_Mindecoins;
 public:
-    User(std::string name,std::string  privKey,std::string  publicKey, long double Mindecoins)
-        :m_name(std::move(name)),m_privKey(std::move(privKey)),m_publicKey(std::move(publicKey)),m_Mindecoins(Mindecoins)
-    {
+    User(std::string name, std::string privKey, std::string publicKey, long double Mindecoins)
+            : m_name(std::move(name)), m_privKey(std::move(privKey)), m_publicKey(std::move(publicKey)),
+              m_Mindecoins(Mindecoins) {
 
     }
-    long double getCoins(){
+
+    long double getCoins() {
         return m_Mindecoins;
     }
-    void incrCoins(long double val){
-        m_Mindecoins+=val;
+
+    void incrCoins(long double val) {
+        m_Mindecoins += val;
     }
-    void decrCoins(long double val){
-        m_Mindecoins-=val;
+
+    void decrCoins(long double val) {
+        m_Mindecoins -= val;
     }
-    std::string getName(){
+
+    std::string getName() {
         return m_name;
     }
-    std::string getPkey(){
+
+    std::string getPkey() {
         return m_publicKey;
     }
 

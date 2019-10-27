@@ -18,24 +18,21 @@
    1. Generuoti vartotojus
    2. Generuoti transakcijas
    3. Generuoti MindeChain blokus
-   4. Isvesti bloku informacija blocklog.txt faile
-   5. Baigti darba
+   4. Isvesti bloku informacija BlockLog.txt faile
+   5. Isvesti mineriu informacija MinerLog.txt faile
+   6. Baigti darba
 
    ``` 
 - Choose the first option to generate a desired number of users, you'll be asked to provide count of generated users, name base, min and max values of MindeCoin a user can have
 - Choose the second option to generate transactions, min and max values of Mindecoins  will be equal to ```0.69420*minMindecoins and 0.69420*maxMindecoins```
 - Choose the third option to generate blocks
 - Choose the fourth option to output info of all the blocks to ```BlockLog.txt``` file
-- Choose the fifth option to exit the program
+- Choose the fifth option to output info of all the miners to ```MinerLog.txt``` file
+- Choose the sixth option to exit the program
 
 ---
 ## Block header structure
 - Block header structure follows this pattern : ```MindeChain version|previous block hash|merkle root hash of all transactions in the block|timestamp when block was mined|difficulty target|nonce value```
-
----
-## One major flaw of MindeChain
-- Due to the fact that my MindeChain DS uses MindeHash hash function for hashing purposes instead of SHA256, every hash is generated in a way that it's impossible for any character to have a neighbor with an equal value - **Which is why blocks can be generated effectively only by setting difficulty to 1 (generated hash has to start with a 1)**
-
 
 ---
 ## A couple of interesting things about MindeChain genesis block
@@ -46,7 +43,7 @@
 
 
 ---
-## Test run
+## BlockLog test run
 
 - Generated users : **100000**
 - Generated transactions : **100000**
@@ -56,8 +53,32 @@
 
 
 ---
+## MinerLog test run
+
+- Generated users : **10000**
+- Generated transactions : **9251**
+- Generated blocks (genesis included) : **94**
+- [MinerLog contents](https://www.dropbox.com/s/5nfj02yawgm67jf/MinerLog.txt?dl=0)
+
+---
 ## Changelog
 
+[v0.2](https://github.com/gitguuddd/MindeChain/releases/tag/v0.2) - (2019-10-27)
+
+**Added**
+- ```Miner``` class to store miner info
+- ```genMiners()``` function to generate a user chosen number of miners
+- ```getAscii()``` function to return the sum of all character ascii codes of a given string
+- ```outputMiners()``` function to output miner info to ```MinerLog.txt```
+- ```removeTransacs()``` function to remove transactions that were stored by the miner that successfully mined the block
+
+**Changed**
+- The POW concept of ```MindeChain``` now relies on the total ascii code sum of all the characters in the block hash. This change allows to
+implement a quite effective ```target``` scale from 1 to 10
+- ```generateBlocks() and mineBlock()``` functions changed according to mining related implementations
+- Reformated code
+
+---
 [v0.1.5](https://github.com/gitguuddd/MindeChain/releases/tag/v0.1.5) - (2019-10-25)
 
 **Added**
