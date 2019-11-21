@@ -261,6 +261,16 @@ std::vector<std::string> tranToString(std::vector<Transaction> trans) {
 std::vector<std::string> mRoot(std::vector<std::string> trans) {
     std::string concat;
     std::vector<std::string> results;
+    if(trans.empty()){
+        MindeHash::genHash("");
+        trans[0]=MindeHash::getHash();
+        return trans;
+    }
+    else if(trans.size()==1){
+        MindeHash::genHash(trans[0]);
+        trans[0]=MindeHash::getHash();
+        return trans;
+    }
     if (trans.size() % 2 != 0)// tikrina ar lyginis dydis
         trans.emplace_back(
                 trans[trans.size() - 1]);// jei ne prideda dar viena paskutiniai transakcijai lygia transakciją

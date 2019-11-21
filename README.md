@@ -63,6 +63,12 @@
 ---
 ## Changelog
 
+[v0.3](https://github.com/gitguuddd/MindeChain/releases/tag/v0.3) - (2019-11-21)
+
+**Changed**
+- Added some missing functionality to ```mroot()``` function
+- README
+---
 [v0.2](https://github.com/gitguuddd/MindeChain/releases/tag/v0.2) - (2019-10-27)
 
 **Added**
