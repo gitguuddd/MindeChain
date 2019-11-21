@@ -81,7 +81,7 @@ public:
     }
 
     friend std::ostream &operator<<(std::ostream &fv, const Miner &miner) {
-        fv << "Mineris " << miner.getID() << " ismine'ino " << miner.getMined() << "bloku \n";
+        fv << "Mineris " << miner.getID() << " ismine'ino " << miner.getMined() << " bloku \n";
     }
 
 

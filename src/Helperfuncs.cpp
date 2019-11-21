@@ -263,13 +263,13 @@ std::vector<std::string> mRoot(std::vector<std::string> trans) {
     std::vector<std::string> results;
     if(trans.empty()){
         MindeHash::genHash("");
-        trans[0]=MindeHash::getHash();
-        return trans;
+        results.emplace_back(MindeHash::getHash());
+        return results;
     }
     else if(trans.size()==1){
         MindeHash::genHash(trans[0]);
-        trans[0]=MindeHash::getHash();
-        return trans;
+        results.emplace_back(MindeHash::getHash());
+        return results;
     }
     if (trans.size() % 2 != 0)// tikrina ar lyginis dydis
         trans.emplace_back(
@@ -277,7 +277,7 @@ std::vector<std::string> mRoot(std::vector<std::string> trans) {
     for (int i = 0; i <= trans.size() - 2; i++) {// i+2 nes sujungiamos transakciju poros ir kartu hashuojamos
         concat = trans[i] + trans[i + 1];// sujungia
         MindeHash::genHash(concat);
-        results.emplace_back(MindeHash::getHash());// papildomas patikrinimas,
+        results.emplace_back(MindeHash::getHash());
         i++;
     }
     if (results.size() != 1)// jei yra daugiau nei vienas hashas - rekursija
@@ -325,9 +325,6 @@ void mineGenesis(MindeBlock &block, int target, BlockHeader &head) {
     long long nonce = dist4(mt);
     head.setNonce(nonce);
     block.setHeader(head.stringify());
-/*    for(int i=0;i<head.getTarget();i++){
-        pattern+=std::to_string(1);
-    }*/
     blockHash = block.getBlockHash();
     while (getAscii(blockHash) < MAX_ASCII * (0.3 + 0.02 * target)) {//https://stackoverflow.com/a/8095276/11198444
         nonce = dist4(mt);

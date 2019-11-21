@@ -13,7 +13,7 @@ int main() {
     std::vector<Transaction> transactions;
     std::vector<std::string> transactionStrings;
     std::vector<MindeBlock> MindeBlocks;
-    double version = 0.2;
+    double version = 0.31;
     while (count == 0) {
         std::cout << "Mindechain versija: V" << version << "\n";
         std::cout << "Sugeneruota " << users.size() << " vartotoju, " << transactions.size()
@@ -56,7 +56,7 @@ int main() {
                     break;
                 }
                 std::cout
-                        << "Iveskite pageidaujama minenimo sunkuma [1;10] (kuo didesnis tuo ilgiau programa uztruks ;) ) \n";
+                        << "Iveskite pageidaujama minenimo sunkuma [1;10]\n";
                 target = inputNum();
                 if (target <= 0 || target > 10) {
                     do {
@@ -72,9 +72,9 @@ int main() {
                 }
                 transactionStrings = tranToString(transactions);
                 if (transactionStrings.size() % 100 != 0)
-                    blocksCount++;
+                    blocksCount++;//blokas likusioms transakcijoms
                 if (MindeBlocks.empty()) {
-                    blocksCount++;
+                    blocksCount++;//blokas genesis blokui
                 }
                 blocksCount += transactionStrings.size() / 100;
                 for (int i = 0; i < blocksCount; i++) {

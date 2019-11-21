@@ -60,14 +60,29 @@
 - Generated blocks (genesis included) : **94**
 - [MinerLog contents](https://www.dropbox.com/s/5nfj02yawgm67jf/MinerLog.txt?dl=0)
 
+## Houston, we have established a connection with bitcoin full node
+- ![Bitcoin](src/bitcoincli.png)
+- Connection to a full node provided by my good friend [Augustinas Makevičius](https://github.com/AugustinasMK). This guy deserves his 0.1 bonus :)
 ---
 ## Changelog
 
-[v0.3](https://github.com/gitguuddd/MindeChain/releases/tag/v0.3) - (2019-11-21)
+[v0.3.1](https://github.com/gitguuddd/MindeChain/releases/tag/v0.3.1) - (2019-11-22)
+
+**Changed**
+- Fixed fatal bugs left in ```mroot()``` function by the last version
+- Added the section about connecting to bitcoin full node
+
+**Removed**
+- Redundant code
+
+
+---
+[v0.3](https://github.com/gitguuddd/MindeChain/releases/tag/v0.3) - (2019-11-21 - 2019-11-22)
 
 **Changed**
 - Added some missing functionality to ```mroot()``` function
 - README
+
 ---
 [v0.2](https://github.com/gitguuddd/MindeChain/releases/tag/v0.2) - (2019-10-27)
 
